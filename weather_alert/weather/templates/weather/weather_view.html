@@ -1,0 +1,108 @@
+<!-- weather/templates/weather/weather_view.html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Check Weather</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="city">Enter City (comma separated if multiple):</label>
+        <input type="text" id="city" name="city" placeholder="Enter city names" required>
+        <button type="submit">Check Weather</button>
+    </form>
+
+    {% if cities_weather %}
+        <h2>Weather Details</h2>
+        <ul>
+        {% for city_weather in cities_weather %}
+            <li>
+                <h3>Weather for {{ city_weather.city }}</h3>
+                <p>Current Temperature: {{ city_weather.temperature }}°C</p>
+                <p>Highest Temperature: {{ city_weather.highest_temp }}°C</p>
+                <p>Lowest Temperature: {{ city_weather.lowest_temp }}°C</p>
+                <p>Humidity: {{ city_weather.humidity }}%</p>
+                <p>Condition: {{ city_weather.condition }}</p>
+                <p>Wind Speed: {{ city_weather.wind_speed }} m/s</p>
+                <p>Average Temperature (last 24h): {{ city_weather.avg_temp }}°C</p>
+                
+                {% if city_weather.extreme_alert %}
+                    <div class="alert alert-danger">{{ city_weather.extreme_alert }}</div>
+                {% else %}
+                    <div class="alert alert-success">The weather is normal.</div>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No weather data available. Please enter city names.</p>
+    {% endif %}
+</body>
+</html> -->
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .alert-success-text {
+            color: green;  /* Text color for success */
+        }
+        .alert-danger-text {
+            color: red;    /* Text color for danger */
+        }
+    </style>
+</head>
+<body>
+    <h1>Check Weather</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="city">Enter City (comma separated if multiple):</label>
+        <input type="text" id="city" name="city" placeholder="Enter city names" required>
+        <button type="submit">Check Weather</button>
+    </form>
+
+    {% if cities_weather %}
+        <h2>Weather Details</h2>
+        <ul>
+        {% for city_weather in cities_weather %}
+            <li>
+                <h3>Weather for {{ city_weather.city }}</h3>
+                <p>Current Temperature: {{ city_weather.temperature }}°C</p>
+                <p>Highest Temperature: {{ city_weather.highest_temp }}°C</p>
+                <p>Lowest Temperature: {{ city_weather.lowest_temp }}°C</p>
+                <p>Humidity: {{ city_weather.humidity }}%</p>
+                <p>Condition: {{ city_weather.condition }}</p>
+                <p>Wind Speed: {{ city_weather.wind_speed }} m/s</p>
+                <p>Average Temperature (last 24h): {{ city_weather.avg_temp }}°C</p>
+                
+                {% if city_weather.extreme_alert %}
+                    <div class="alert-danger-text">{{ city_weather.extreme_alert }}</div>
+                {% else %}
+                    <div class="alert-success-text">The weather is normal.</div>
+                {% endif %}
+                <br><br>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No weather data available. Please enter city names.</p>
+    {% endif %}
+</body>
+</html>
