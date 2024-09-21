@@ -1,4 +1,3 @@
-# weather/views.py
 from django.shortcuts import redirect, render
 from datetime import datetime
 from django.utils import timezone
@@ -35,6 +34,7 @@ def calculate_average_temperature(city):
 def check_extreme_weather(city):
     latest_data = WeatherData.objects.filter(city=city).last()
     if latest_data:
+        # Provide the conditions for extreme weather
         if latest_data.temperature > 35 or latest_data.condition in ["Thunderstorm", "Hurricane"]:
             return f"Extreme weather alert in {city}: {latest_data.condition}"
         return None
@@ -45,7 +45,7 @@ from .models import WeatherData
 def weather_view(request):
     cities_weather = []
     if request.method == "POST":
-        # Get the input city string from the user and split by commas
+        # Getting the input city string from the user and split by commas
         city_input = request.POST.get('city')
         cities = city_input.split(',')
         cities = [city.strip() for city in cities if city.strip()]
@@ -56,7 +56,7 @@ def weather_view(request):
             avg_temp = calculate_average_temperature(city)
             extreme_alert = check_extreme_weather(city)
 
-            # Add the data for this city to the list
+            # Adding the data for this city to the list
             if latest_data:
                 cities_weather.append({
                     'city': latest_data.city,
@@ -70,94 +70,14 @@ def weather_view(request):
                     'extreme_alert': extreme_alert
                 })
 
-        # Store the result in the session to access it after redirect
         request.session['cities_weather'] = cities_weather
-        return redirect('weather_view')  # Redirect to the same view
-
-    else:  # Handle GET requests
-        # Retrieve weather data from the session
+        return redirect('weather_view')
+    else:
         cities_weather = request.session.get('cities_weather', [])
 
-        # Clear the session data after using it
         if cities_weather:
             del request.session['cities_weather']
 
     return render(request, 'weather/weather_view.html', {
         'cities_weather': cities_weather
     })
-
-
-
-# def weather_view(request):
-#     cities_weather = []  # List to hold weather data for all cities
-
-#     if request.method == "POST":
-#         # Get the input city string from the user and split by commas
-#         city_input = request.POST.get('city')
-#         cities = city_input.split(',')  # Split by comma in case of multiple cities
-#         cities = [city.strip() for city in cities if city.strip()]  # Remove any extra spaces and ignore empty strings
-
-#         for city in cities:
-#             store_weather_data(city)  # Fetch and store weather data for each city
-#             latest_data = WeatherData.objects.filter(city=city).last()
-#             avg_temp = calculate_average_temperature(city)
-#             extreme_alert = check_extreme_weather(city)
-
-#             # Add the data for this city to the list
-#             if latest_data:
-#                 cities_weather.append({
-#                     'city': latest_data.city,
-#                     'temperature': latest_data.temperature,
-#                     'highest_temp': latest_data.highest_temp,
-#                     'lowest_temp': latest_data.lowest_temp,
-#                     'humidity': latest_data.humidity,
-#                     'condition': latest_data.condition,
-#                     'wind_speed': latest_data.wind_speed,
-#                     'avg_temp': avg_temp,
-#                     'extreme_alert': extreme_alert
-#                 })
-
-#         # Redirect to the same view with a GET request after processing
-#         return redirect('weather_view')  # Make sure to use the correct URL name
-
-#     else:  # GET request
-#         # Optionally, you can fetch the latest weather data here if needed
-#         # For now, this will handle the case when the user directly accesses the page
-#         return render(request, 'weather/weather_view.html', {
-#             'cities_weather': cities_weather
-#         })
-
-
-# # def weather_view(request):
-# #     cities_weather = []  # List to hold weather data for all cities
-
-# #     if request.method == "POST":
-# #         # Get the input city string from the user and split by commas
-# #         city_input = request.POST.get('city')
-# #         cities = city_input.split(',')  # Split by comma in case of multiple cities
-# #         cities = [city.strip() for city in cities if city.strip()]  # Remove any extra spaces and ignore empty strings
-
-# #         for city in cities:
-# #             store_weather_data(city)  # Fetch and store weather data for each city
-# #             latest_data = WeatherData.objects.filter(city=city).last()
-# #             avg_temp = calculate_average_temperature(city)
-# #             extreme_alert = check_extreme_weather(city)
-
-# #             # Add the data for this city to the list
-# #             if latest_data:
-# #                 cities_weather.append({
-# #                     'city': latest_data.city,
-# #                     'temperature': latest_data.temperature,
-# #                     'highest_temp': latest_data.highest_temp,
-# #                     'lowest_temp': latest_data.lowest_temp,
-# #                     'humidity': latest_data.humidity,
-# #                     'condition': latest_data.condition,
-# #                     'wind_speed': latest_data.wind_speed,
-# #                     'avg_temp': avg_temp,
-# #                     'extreme_alert': extreme_alert
-# #                 })
-
-# #     return render(request, 'weather/weather_view.html', {
-# #         'cities_weather': cities_weather
-# #     })
-

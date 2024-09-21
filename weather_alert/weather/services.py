@@ -1,6 +1,5 @@
 import requests
 
-# weather_alert/settings.py
 WEATHER_API_KEY = '0f3470bbf831e0c425e15028412dcd8f'
 WEATHER_API_URL = 'http://api.openweathermap.org/data/2.5/weather'
 
