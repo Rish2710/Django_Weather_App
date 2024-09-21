@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -18,40 +19,45 @@
     </style>
 </head>
 <body>
-    <h1>Check Weather</h1>
+    <div class="container">
+        <br>
+        <h1>Check Weather</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        <label for="city">Enter City (comma separated if multiple):</label>
-        <input type="text" id="city" name="city" placeholder="Enter city names" required>
-        <button type="submit">Check Weather</button>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            <h6><label for="city">Enter City (comma separated if multiple):</label>
+            <input type="text" id="city" name="city" placeholder="Enter city names" required>
+            <button type="submit">Check Weather</button></h6>
+        </form>
 
-    {% if cities_weather %}
-        <h2>Weather Details</h2>
-        <ul>
-        {% for city_weather in cities_weather %}
-            <li>
-                <h3>Weather for {{ city_weather.city }}</h3>
-                <p>Current Temperature: {{ city_weather.temperature }}°C</p>
-                <p>Highest Temperature: {{ city_weather.highest_temp }}°C</p>
-                <p>Lowest Temperature: {{ city_weather.lowest_temp }}°C</p>
-                <p>Humidity: {{ city_weather.humidity }}%</p>
-                <p>Condition: {{ city_weather.condition }}</p>
-                <p>Wind Speed: {{ city_weather.wind_speed }} m/s</p>
-                <p>Average Temperature (last 24h): {{ city_weather.avg_temp }}°C</p>
-                
-                {% if city_weather.extreme_alert %}
-                    <div class="alert-danger-text">{{ city_weather.extreme_alert }}</div>
-                {% else %}
-                    <div class="alert-success-text">The weather is normal.</div>
-                {% endif %}
-                <br><br>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No weather data available. Please enter city names.</p>
-    {% endif %}
+        {% if cities_weather %}
+            <br>
+            <h2>Weather Details</h2>
+            <br>
+            <ul>
+            {% for city_weather in cities_weather %}
+                <li>
+                    <h3>Weather for {{ city_weather.city }}</h3>
+                    <p>Current Temperature: {{ city_weather.temperature }}°C</p>
+                    <p>Highest Temperature: {{ city_weather.highest_temp }}°C</p>
+                    <p>Lowest Temperature: {{ city_weather.lowest_temp }}°C</p>
+                    <p>Humidity: {{ city_weather.humidity }}%</p>
+                    <p>Condition: {{ city_weather.condition }}</p>
+                    <p>Wind Speed: {{ city_weather.wind_speed }} m/s</p>
+                    <p>Average Temperature (last 24h): {{ city_weather.avg_temp }}°C</p>
+                    
+                    {% if city_weather.extreme_alert %}
+                        <div class="alert-danger-text">{{ city_weather.extreme_alert }}</div>
+                    {% else %}
+                        <div class="alert-success-text">The weather is normal.</div>
+                    {% endif %}
+                    <br><br>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <h6><p>Please enter city names.</p></h6>
+        {% endif %}
+    </div>
 </body>
 </html>
