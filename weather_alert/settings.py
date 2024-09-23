@@ -11,20 +11,18 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
 import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-WEATHER_API_KEY = config('WEATHER_API_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY="django-insecure-1q60$8(#xi2))4tb7gnsadbsty4pvg-1bj$!fmb#erxx+-uz+q"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
