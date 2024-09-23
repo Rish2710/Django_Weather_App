@@ -1,0 +1,10 @@
+# Ignore environment variables
+.env
+
+# Ignore other typical Django-related files
+__pycache__/
+db.sqlite3
+*.pyc
+/static/
+media/
+*.log
