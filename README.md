@@ -19,7 +19,7 @@ If the following conditions are met, an alert will be shown at the bottom of the
 
 ## How It Works
 
-1. Enter the name of the city in the input field.
+1. Enter the name of the city in the input field.(For multiple cities enter them comma-seperated.)
 2. Submit the form to retrieve the current weather data for that city.
 3. The service will display the following details:
     - Current Temperature: `23.5°C`
