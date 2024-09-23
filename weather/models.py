@@ -8,6 +8,7 @@ class WeatherData(models.Model):
     wind_speed = models.FloatField()
     highest_temp = models.FloatField(null=True)
     lowest_temp = models.FloatField(null=True)
+    feels_like = models.FloatField(null=True)
     last_updated = models.DateTimeField()
 
     def __str__(self):

@@ -8,4 +8,6 @@ def fetch_weather_data(city):
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
+    elif response.status_code == 404:
+        return {"error": "City not found."}
     return None
